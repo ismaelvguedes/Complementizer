@@ -1,5 +1,5 @@
 import requests
-from faker import Faker
+from complementizer.form import FormComplementizer
 
 class Complementizer:
     
@@ -8,7 +8,6 @@ class Complementizer:
         self.username: str = username
         self.password: str = password
         self.has_token: bool = has_token
-        self.faker = Faker(locale = 'pt_br')
         
         if self.has_token:
             response = requests.post(url_base + path_auth, data = {
@@ -17,13 +16,19 @@ class Complementizer:
             })
             self.token = response.json()['token']
             
-    def generate(self, endpoint, fields: list[dict]):
-        pass
-    
-    def typeField(self, type: str) -> callable:
-        if type == 'name':
-            return self.faker.name
-        elif type == 'address':
-            return self.faker.address
-        elif type.split('_')[0] == 'date_of_birth':
-            return self.faker.date_of_birth
+    def populate(self, endpoint, form: FormComplementizer, amount: int):
+        for id in range(0, amount):
+            deps = []
+            for dependency in form.dependencies:
+                response = requests.get(self.url_base + dependency.path, headers = { 'Authorization': 'Token ' + self.token }) 
+                values = []
+                for cargo in response.json():
+                    values.append(cargo['id'])
+                deps.append({
+                    'name': dependency.name,
+                    'values': values
+                })
+                
+            datas = form.generate(deps=deps)
+            response = requests.post(self.url_base + endpoint, data = datas, headers = { 'Authorization': 'Token ' + self.token }) 
+            print(response.json())

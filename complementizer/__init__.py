@@ -1,3 +1,3 @@
 from complementizer.complementizer import Complementizer
-from complementizer.field import FieldComplementizer
+from complementizer.form import FieldComplementizer
 from complementizer.types import TypeField
