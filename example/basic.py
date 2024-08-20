@@ -1,5 +1,5 @@
 from complementizer import Complementizer
-from complementizer.types import TypeField
+from complementizer.type import TypeField
 from complementizer.form import Form
 
 # Configuração da API genérica

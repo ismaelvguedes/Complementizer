@@ -20,6 +20,6 @@ class Complementizer:
         generate = form.generate()
         print(form.table.upper(), '=>' , generate)
         response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
-        print('RESPONSE')
+        print('\nRESPONSE')
         print(response.json())
-        print('========')
+        print('========\n')

@@ -1,4 +1,4 @@
-from complementizer.types import TypeField
+from complementizer.type import TypeField
 from faker import Faker
 import random
 import requests
