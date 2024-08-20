@@ -1,5 +1,5 @@
 import requests
-from complementizer.form import *
+from complementizer import Form
 
 class Complementizer:
     
@@ -14,12 +14,16 @@ class Complementizer:
                 'username': username,
                 'password': password,
             })
-            self.token = response.json()['token']
+            self.token = response.json()['token']        
+        
+    def createForm(self, table: str):
+        self.form = Form(table,complementizer=self)
+        return self.form
             
-    def populate(self, endpoint, form: Form):
-        generate = form.generate()
-        print(form.table.upper(), '=>' , generate)
-        response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
+    def populate(self, endpoint):
+        generate = self.form.generate()
+        print(self.form.table.upper(), '=>' , generate)
+        # response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
         print('\nRESPONSE')
-        print(response.json())
+        # print(response.json())
         print('========\n')

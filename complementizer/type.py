@@ -20,3 +20,4 @@ class TypeField(Enum):
     COMPANY = 17
     CATEGORY = 18
     CPF = 19
+    CHOICES = 20

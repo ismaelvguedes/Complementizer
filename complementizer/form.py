@@ -70,6 +70,8 @@ class Field:
             self.data = faker.job()
         if self.type == TypeField.CPF:
             self.data = faker.cpf()
+        if self.type == TypeField.CHOICES:
+            self.data = faker.random_element(self.info['choices'])
 
 class Dependency:
 
@@ -85,13 +87,14 @@ class Default():
 
 class Form:
     
-    def __init__(self, table: str):
+    def __init__(self, table: str, complementizer):
         self.faker = Faker(locale = 'pt_br', )
         self.table = table
         self.fields: list[Field] = []
         self.defaults: list[Default] = []
         self.dependencies: list[Dependency] = []
         self.male: bool = self.faker.boolean(50)
+        self.comp = complementizer
     
     def createField(self, name: str, type: TypeField, **info):
         field = Field(name, type, self.male, self.faker, **info)
@@ -99,7 +102,7 @@ class Form:
         return field
     
     def createDependecy(self, name, path):
-        response = requests.get(self.url_base + path, headers = { 'Authorization': 'Token ' + self.token }) 
+        response = requests.get(self.comp.url_base + path, headers = { 'Authorization': 'Token ' + self.comp.token }) 
         
         values = []
         for temp in response.json():
