@@ -1,7 +1,7 @@
 from enum import Enum
 
 class TypeField(Enum):
-    NAME = 1
+    NAME_FULL = 1
     NAME_FIRST = 2
     NAME_LAST = 3
     ADDRESS = 4
@@ -18,3 +18,5 @@ class TypeField(Enum):
     EMAIL = 15
     PASSWORD = 16
     COMPANY = 17
+    CATEGORY = 18
+    CPF = 19

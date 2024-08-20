@@ -1,5 +1,5 @@
 import requests
-from complementizer.form import FormComplementizer
+from complementizer.form import *
 
 class Complementizer:
     
@@ -16,19 +16,10 @@ class Complementizer:
             })
             self.token = response.json()['token']
             
-    def populate(self, endpoint, form: FormComplementizer, amount: int):
-        for id in range(0, amount):
-            deps = []
-            for dependency in form.dependencies:
-                response = requests.get(self.url_base + dependency.path, headers = { 'Authorization': 'Token ' + self.token }) 
-                values = []
-                for cargo in response.json():
-                    values.append(cargo['id'])
-                deps.append({
-                    'name': dependency.name,
-                    'values': values
-                })
-                
-            datas = form.generate(deps=deps)
-            response = requests.post(self.url_base + endpoint, data = datas, headers = { 'Authorization': 'Token ' + self.token }) 
-            print(response.json())
+    def populate(self, endpoint, form: Form):
+        generate = form.generate()
+        print(form.table.upper(), '=>' , generate)
+        response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
+        print('RESPONSE')
+        print(response.json())
+        print('========')
