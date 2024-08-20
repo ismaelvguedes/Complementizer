@@ -1,4 +1,5 @@
-#`Complementizer` 🛠️
+# Complementizer 🛠️ 
+Autor: [`Ismael Guedes`](https://github.com/ismaelvguedes/)
 
 O `Complementizer` facilita a criação e preenchimento de formulários automatizados para interações com APIs. Vamos analisar os diferentes componentes e seu funcionamento.
 
