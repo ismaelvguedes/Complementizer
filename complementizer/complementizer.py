@@ -23,7 +23,7 @@ class Complementizer:
     def populate(self, endpoint):
         generate = self.form.generate()
         print(self.form.table.upper(), '=>' , generate)
-        # response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
+        response = requests.post(self.url_base + endpoint, data = generate, headers = { 'Authorization': 'Token ' + self.token })
         print('\nRESPONSE')
-        # print(response.json())
+        print(response.json())
         print('========\n')

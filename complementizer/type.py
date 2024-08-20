@@ -21,3 +21,4 @@ class TypeField(Enum):
     CATEGORY = 18
     CPF = 19
     CHOICES = 20
+    BOOLEAN = 21

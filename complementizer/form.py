@@ -72,6 +72,8 @@ class Field:
             self.data = faker.cpf()
         if self.type == TypeField.CHOICES:
             self.data = faker.random_element(self.info['choices'])
+        if self.type == TypeField.BOOLEAN:
+            self.data = faker.boolean(chance_of_getting_true=50)
 
 class Dependency:
 
