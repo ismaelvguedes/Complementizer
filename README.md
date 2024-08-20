@@ -3,6 +3,11 @@ Autor: [`Ismael Guedes`](https://github.com/ismaelvguedes/)
 
 O `Complementizer` facilita a criação e preenchimento de formulários automatizados para interações com APIs. Vamos analisar os diferentes componentes e seu funcionamento.
 
+## Instalação
+```cmd
+pip install complementizer
+```
+
 ## 1. Complementizer Class 🔑
 
 - **`Complementizer`** é uma classe que se conecta a uma API e autentica o usuário. Se a API requer um token de autenticação, ela faz uma requisição para obter o token e o armazena.
