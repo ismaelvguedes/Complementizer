@@ -77,13 +77,14 @@ class Field:
 
 class Dependency:
 
-    def __init__(self, name, values) -> None:
+    def __init__(self, name, value, data: dict) -> None:
         self.name = name
-        self.values = values
+        self.value = value
+        self.datas = data
 
 class Default():
 
-    def __init__(self, name: str, value):
+    def __init__(self, name: str, value: list):
         self.name = name
         self.value = value
 
@@ -105,12 +106,15 @@ class Form:
     
     def createDependecy(self, name, path):
         response = requests.get(self.comp.url_base + path, headers = { 'Authorization': 'Token ' + self.comp.token }) 
-        
+        data = response.json()
+
         values = []
-        for temp in response.json():
+        for temp in data:
             values.append(temp['id'])
 
-        dependency = Dependency(name, values)       
+        data = data[random.randint(0, len(values) - 1)]
+
+        dependency = Dependency(name, data['id'], data)       
         self.dependencies.append(dependency)
         return dependency
 
@@ -127,6 +131,6 @@ class Form:
         for default in self.defaults:
             data[default.name] = default.value
         for dependency in self.dependencies:
-            data[dependency.name] = dependency.values[random.randint(0, len(dependency.values) - 1)]
+            data[dependency.name] = dependency.values
 
         return data
